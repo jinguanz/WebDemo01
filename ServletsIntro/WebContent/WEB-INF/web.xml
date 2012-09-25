@@ -1,0 +1,75 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+
+    <display-name>Intro to Servlets</display-name>
+    <description>
+        Examples for Our First Lecture on Servlets
+    </description>
+
+    <servlet>
+        <servlet-name>   hello-world     </servlet-name>
+        <servlet-class>  HelloWorld      </servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>   hello-x         </servlet-name>
+        <servlet-class>  HelloX          </servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>   power-of-two    </servlet-name>
+        <servlet-class>  IsPowerOfTwo    </servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>   show            </servlet-name>
+        <servlet-class>  Show            </servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>   space           </servlet-name>
+        <servlet-class>  Space           </servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>   time            </servlet-name>
+        <servlet-class>  Time            </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>   hello-world     </servlet-name>
+        <url-pattern>    /HelloWorld     </url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>   hello-x         </servlet-name>
+        <url-pattern>    /HelloX         </url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>   hello-x         </servlet-name>
+        <url-pattern>    /hello.html     </url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>   power-of-two    </servlet-name>
+        <url-pattern>    /IsPowerOfTwo   </url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>   show            </servlet-name>
+        <url-pattern>    /Show           </url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>   space           </servlet-name>
+        <url-pattern>    /Space          </url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>   time            </servlet-name>
+        <url-pattern>    /Time           </url-pattern>
+    </servlet-mapping>
+</web-app>
