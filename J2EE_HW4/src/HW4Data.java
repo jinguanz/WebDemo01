@@ -5,7 +5,7 @@ import java.util.Date;
  * 
  */
 public class HW4Data {
-	static int checkNumber = 101;
+	
 	private Date date;
 	private int check;
 	private String desc;

@@ -25,6 +25,7 @@ public class HW4GUI extends JFrame implements ActionListener {
 	 * @param args
 	 */
 	static double balance=0.00;
+	static int checkNumber = 101;
 	private JButton checkButton;
 	private JButton depositeButton;
 	private JTextField dateField;
@@ -46,8 +47,8 @@ public class HW4GUI extends JFrame implements ActionListener {
 		JPanel pane01= new JPanel();
 		dateField = new JTextField(10);
 		dateField.setText(getDate());
-		JTextField descriptionField = new JTextField(15);
-		JTextField amoutnField = new JTextField(5);
+		descriptionField = new JTextField(15);
+		amoutnField = new JTextField(5);
 		JLabel moneyLabel = new JLabel("$");
 		pane01.add(dateField);
 		pane01.add(descriptionField);
@@ -73,7 +74,6 @@ public class HW4GUI extends JFrame implements ActionListener {
         pane.add(buttonPane);
         pane.add(errorPanel);
         pane.add(scroller);
-        //pane.add(area);
         frame.add(pane);
 		frame.setContentPane(pane);
 		frame.setVisible(true);
@@ -95,7 +95,12 @@ public class HW4GUI extends JFrame implements ActionListener {
 			errorField.setText(dataContent);
 			area.append("a\tb\tc\td\t " + "\n");
 		}
-		else if(e.getSource()==depositeButton){
+	    if(e.getSource()==depositeButton){
+			String date = dateField.getText();
+			String desc = descriptionField.getText();
+			String amount = amoutnField.getText();
+			area.append(date +"\t" + checkNumber +"\t" + desc +"\t" + amount +"\t" + "\n");
+			checkNumber++;
 			
 		}
 			
