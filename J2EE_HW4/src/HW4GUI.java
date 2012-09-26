@@ -61,11 +61,11 @@ public class HW4GUI extends JFrame implements ActionListener {
 		buttonPane.add(checkButton);
 		buttonPane.add(depositeButton);
 		JPanel errorPanel = new JPanel();
-		errorField = new JTextField(35);
+		errorField = new JTextField(45);
 		errorField.setEditable(false);
 		errorPanel.add(errorField);
-		area = new JTextArea(20, 35);
-		area.setText("Date  Check #  Description    Amount   Fee  Balance");
+		area = new JTextArea(15, 45);
+		area.setText("Date\tCheck #\tDescription\tAmount\tFee\tBalance" +"\n");
 		area.setEditable(false);
 		JScrollPane scroller = new JScrollPane(area);
 		pane.add(scroller);
@@ -93,6 +93,7 @@ public class HW4GUI extends JFrame implements ActionListener {
 		if(e.getSource()==checkButton){
 			String dataContent = dateField.getText()  ;
 			errorField.setText(dataContent);
+			area.append("a\tb\tc\td\t " + "\n");
 		}
 		else if(e.getSource()==depositeButton){
 			
