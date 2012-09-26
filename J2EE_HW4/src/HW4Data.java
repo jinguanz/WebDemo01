@@ -6,29 +6,37 @@ import java.util.Date;
  */
 public class HW4Data {
 	
-	private Date date;
-	private int check;
+	private String date;
 	private String desc;
 	private double amount;
 	private double fee;
 	private double balance;
+	
+	public HW4Data(String date, String desc, double amount, double fee){
+		this.date=date;
+		this.desc=desc;
+		this.amount=amount;
+		this.fee=fee;
+		this.balance=amount-fee;
+	}
 
-	public Date getDate() {
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public int getCheck() {
-		return check;
-	}
-
-	public void setCheck(int check) {
-		this.check = check;
-	}
-
+	
 	public String getDesc() {
 		return desc;
 	}
@@ -53,12 +61,6 @@ public class HW4Data {
 		this.fee = fee;
 	}
 
-	public double getBalance() {
-		return balance;
-	}
-
-	public void setBalance(double balance) {
-		this.balance = balance;
-	}
+	
 
 }
