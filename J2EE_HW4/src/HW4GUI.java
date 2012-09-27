@@ -110,11 +110,12 @@ public class HW4GUI extends JFrame implements ActionListener {
 		if(e.getSource()==checkButton){
 			HW4Data data = createNewData("check");
 			//add a valid condition
-			balance=balance + data.getAmount()-data.getFee();
 			dataList.add(data);
 			Collections.sort(dataList,comparator);
+			area.setText("");
+			area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance" +"\n");
 			for(HW4Data hw4Data: dataList){
-				balance = balance + hw4Data.getBalance();
+				balance = balance - hw4Data.getBalance();
 				area.append( hw4Data.getDate() +"\t\t" +hw4Data.getDesc() +"\t\t"+ hw4Data.getAmount() +"\t" + hw4Data.getFee() +"\t" + balance + "\t" + "\n");
 				
 			}
@@ -124,9 +125,10 @@ public class HW4GUI extends JFrame implements ActionListener {
 	    if(e.getSource()==depositeButton){
 			HW4Data data = createNewData("deposite");
 			//add a valid condition
-			balance=balance + data.getAmount()-data.getFee();
 			dataList.add(data);
 			Collections.sort(dataList,comparator);
+			area.setText("");
+			area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance" +"\n");
 			for(HW4Data hw4Data: dataList){
 				balance = balance + hw4Data.getBalance();
 				area.append( hw4Data.getDate() +"\t" + checkNumber +"\t" +hw4Data.getDesc() +"\t\t"+ hw4Data.getAmount() +"\t" + hw4Data.getFee() +"\t" + balance + "\t" + "\n");
@@ -208,7 +210,7 @@ public class HW4GUI extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 			
-			if(date01.before(date02))
+			if(date01.after(date02))
 		          return 1;
 		       else if(date01.before(date02))
 		          return -1;
