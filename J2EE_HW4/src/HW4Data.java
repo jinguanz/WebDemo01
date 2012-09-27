@@ -2,7 +2,7 @@ import java.util.Date;
 
 /**
  * Name: Jinguang Zhou Andrew ID:jinguanz Class: 08-600 Date:2012-09-25
- * 
+ * Use this class to save each line
  */
 public class HW4Data {
 	
