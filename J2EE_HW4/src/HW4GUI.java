@@ -35,7 +35,7 @@ public class HW4GUI extends JFrame implements ActionListener {
 	private JButton depositeButton;
 	private JTextField dateField;
 	private JTextField descriptionField;
-	private JTextField amoutnField;
+	private JTextField amountField;
 	private JTextField errorField;
 	private JTextArea area;
 	private Date date;
@@ -64,12 +64,12 @@ public class HW4GUI extends JFrame implements ActionListener {
 		dateField = new JTextField(10);
 		dateField.setText(getDate());
 		descriptionField = new JTextField(15);
-		amoutnField = new JTextField(5);
+		amountField = new JTextField(5);
 		JLabel moneyLabel = new JLabel("$");
 		pane01.add(dateField);
 		pane01.add(descriptionField);
 		pane01.add(moneyLabel);
-		pane01.add(amoutnField);
+		pane01.add(amountField);
 		JPanel buttonPane = new JPanel();
 		checkButton = new JButton("Write Check");
 		checkButton.addActionListener(this);
@@ -116,9 +116,12 @@ public class HW4GUI extends JFrame implements ActionListener {
 			area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance" +"\n");
 			for(HW4Data hw4Data: dataList){
 				balance = balance - hw4Data.getBalance();
-				area.append( hw4Data.getDate() +"\t\t" +hw4Data.getDesc() +"\t\t"+ hw4Data.getAmount() +"\t" + hw4Data.getFee() +"\t" + balance + "\t" + "\n");
+				area.append( hw4Data.getDate() +"\t" +hw4Data.getCheck() +"\t"  +hw4Data.getDesc() +"\t\t"+ hw4Data.getAmount() +"\t" + hw4Data.getFee() +"\t" + balance + "\t" + "\n");
 				
 			}
+			balance=0;
+			descriptionField.setText("");
+			amountField.setText("");
 			
 			
 		}
@@ -131,9 +134,11 @@ public class HW4GUI extends JFrame implements ActionListener {
 			area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance" +"\n");
 			for(HW4Data hw4Data: dataList){
 				balance = balance + hw4Data.getBalance();
-				area.append( hw4Data.getDate() +"\t" + checkNumber +"\t" +hw4Data.getDesc() +"\t\t"+ hw4Data.getAmount() +"\t" + hw4Data.getFee() +"\t" + balance + "\t" + "\n");
+				area.append( hw4Data.getDate() +"\t" + hw4Data.getCheck() +"\t" +hw4Data.getDesc() +"\t\t"+ hw4Data.getAmount() +"\t" + hw4Data.getFee() +"\t" + balance + "\t" + "\n");
 			}
-			checkNumber++;
+			balance=0;
+			descriptionField.setText("");
+			amountField.setText("");
 			
 		}
 			
@@ -154,12 +159,17 @@ public class HW4GUI extends JFrame implements ActionListener {
 			e1.printStackTrace();
 		}
 		desc=descriptionField.getText();
-		amount=Double.parseDouble(amoutnField.getText());
-		if(type.equals("check"))
+		amount=Double.parseDouble(amountField.getText());
+		HW4Data data=null;
+		if(type.equals("check")){
 			fee=checkFee(amount);
-		else
+			data = new HW4Data(df.format(date), desc, amount, fee,Integer.toString(checkNumber));
+			checkNumber++;
+		}
+		else{
 			fee=depositeFee(amount);
-		HW4Data data = new HW4Data(df.format(date), desc, amount, fee);
+		     data = new HW4Data(df.format(date), desc, -amount, fee,"");
+		}
 		return data;
 	}
 	/**

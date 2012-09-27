@@ -11,13 +11,23 @@ public class HW4Data {
 	private double amount;
 	private double fee;
 	private double balance;
+	private String check;
 	
-	public HW4Data(String date, String desc, double amount, double fee){
+	public HW4Data(String date, String desc, double amount, double fee, String check){
 		this.date=date;
 		this.desc=desc;
 		this.amount=amount;
 		this.fee=fee;
 		this.balance=amount-fee;
+		this.check=check;
+	}
+
+	public String getCheck() {
+		return check;
+	}
+
+	public void setCheck(String check) {
+		this.check = check;
 	}
 
 	public double getBalance() {
