@@ -18,18 +18,15 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
- * Name:Jinguang Zhou
- * AndrewID: jinguanz
- * Class:08-600;
- * Date:2012-09-25
- *
+ * Name:Jinguang Zhou AndrewID: jinguanz Class:08-600; Date:2012-09-25
+ * 
  */
 public class HW4GUI extends JFrame implements ActionListener {
 
 	/**
 	 * @param args
 	 */
-	static double balance=0.00;
+	static double balance = 0.00;
 	static int checkNumber = 101;
 	private JButton checkButton;
 	private JButton depositeButton;
@@ -42,12 +39,13 @@ public class HW4GUI extends JFrame implements ActionListener {
 	private String desc;
 	private double amount;
 	private double fee;
-	public static final String DATE_ERROR="Date is not a valid date";
-	public static final String DESC_ERROR="Description cannot be empty";
-	public static final String DEPOSITE_ERROR="Deposite amount is not a valid number";
-	public static final String CHECK_ERROR="Check amount is not a valid number";
+	public static final String DATE_ERROR = "Date is not a valid date";
+	public static final String DESC_ERROR = "Description cannot be empty";
+	public static final String DEPOSITE_ERROR = "Deposite amount is not a valid number";
+	public static final String CHECK_ERROR = "Check amount is not a valid number";
 	private List<HW4Data> dataList;
 	private MyComparator comparator;
+
 	public HW4GUI() {
 		dataList = new ArrayList<HW4Data>();
 		JFrame frame = new JFrame("15-600 Checking Account Register");
@@ -60,7 +58,7 @@ public class HW4GUI extends JFrame implements ActionListener {
 		pane.add(label);
 		pane.add(desLabel);
 		pane.add(accLabel);
-		JPanel pane01= new JPanel();
+		JPanel pane01 = new JPanel();
 		dateField = new JTextField(10);
 		dateField.setText(getDate());
 		descriptionField = new JTextField(15);
@@ -82,75 +80,84 @@ public class HW4GUI extends JFrame implements ActionListener {
 		errorField.setEditable(false);
 		errorPanel.add(errorField);
 		area = new JTextArea(15, 45);
-		area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance" +"\n");
+		area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance"
+				+ "\n");
 		area.setEditable(false);
 		JScrollPane scroller = new JScrollPane(area);
 		pane.add(scroller);
 		pane.add(pane01);
-        pane.add(buttonPane);
-        pane.add(errorPanel);
-        pane.add(scroller);
-        frame.add(pane);
+		pane.add(buttonPane);
+		pane.add(errorPanel);
+		pane.add(scroller);
+		frame.add(pane);
 		frame.setContentPane(pane);
 		frame.setVisible(true);
 		comparator = new MyComparator();
 	}
-	
-	
-	public static String getDate(){
-		   DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		   //get current date time with Date()
-		   Date date = new Date();
-		   String currentDate=dateFormat.format(date);
-		   return currentDate;
+
+	public static String getDate() {
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		// get current date time with Date()
+		Date date = new Date();
+		String currentDate = dateFormat.format(date);
+		return currentDate;
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==checkButton){
-			HW4Data data = createNewData("check");
-			//add a valid condition
-			dataList.add(data);
-			Collections.sort(dataList,comparator);
-			area.setText("");
-			area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance" +"\n");
-			for(HW4Data hw4Data: dataList){
-				balance = balance - hw4Data.getBalance();
-				area.append( hw4Data.getDate() +"\t" +hw4Data.getCheck() +"\t"  +hw4Data.getDesc() +"\t\t"+ hw4Data.getAmount() +"\t" + hw4Data.getFee() +"\t" + balance + "\t" + "\n");
-				
+		if (e.getSource() == checkButton) {
+			if (isDataValid(dateField.getText(),
+					descriptionField.getText(), amountField.getText())) {
+				HW4Data data = createNewData("check");
+				dataList.add(data);
+				Collections.sort(dataList, comparator);
+				area.setText("");
+				area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance"
+						+ "\n");
+				for (HW4Data hw4Data : dataList) {
+					balance = balance + hw4Data.getBalance();
+					area.append(hw4Data.getDate() + "\t" + hw4Data.getCheck()
+							+ "\t" + hw4Data.getDesc() + "\t\t"
+							+ hw4Data.getAmount() + "\t" + hw4Data.getFee()
+							+ "\t" + balance + "\t" + "\n");
+				}
+				balance = 0;
+				descriptionField.setText("");
+				amountField.setText("");
+				errorField.setText("");
+
 			}
-			balance=0;
-			descriptionField.setText("");
-			amountField.setText("");
-			
-			
 		}
-	    if(e.getSource()==depositeButton){
-			HW4Data data = createNewData("deposite");
-			//add a valid condition
-			dataList.add(data);
-			Collections.sort(dataList,comparator);
-			area.setText("");
-			area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance" +"\n");
-			for(HW4Data hw4Data: dataList){
-				balance = balance + hw4Data.getBalance();
-				area.append( hw4Data.getDate() +"\t" + hw4Data.getCheck() +"\t" +hw4Data.getDesc() +"\t\t"+ hw4Data.getAmount() +"\t" + hw4Data.getFee() +"\t" + balance + "\t" + "\n");
+		if (e.getSource() == depositeButton) {
+			if (isDataValid(dateField.getText(),
+					descriptionField.getText(), amountField.getText())) {
+				HW4Data data = createNewData("deposite");
+				// add a valid condition
+				dataList.add(data);
+				Collections.sort(dataList, comparator);
+				area.setText("");
+				area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance"
+						+ "\n");
+				for (HW4Data hw4Data : dataList) {
+					balance = balance + hw4Data.getBalance();
+					area.append(hw4Data.getDate() + "\t" + hw4Data.getCheck()
+							+ "\t" + hw4Data.getDesc() + "\t\t"
+							+ hw4Data.getAmount() + "\t" + hw4Data.getFee()
+							+ "\t" + balance + "\t" + "\n");
+				}
+				balance = 0;
+				descriptionField.setText("");
+				amountField.setText("");
+				errorField.setText("");
+
 			}
-			balance=0;
-			descriptionField.setText("");
-			amountField.setText("");
-			
+
 		}
-			
-		
-		
+
 	}
-	
-	public boolean isInvalid(){
-		return true;
-	}
-	
-	public HW4Data createNewData(String type){
+
+	public HW4Data createNewData(String type) {
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		try {
 			date = df.parse(dateField.getText().trim());
@@ -158,90 +165,141 @@ public class HW4GUI extends JFrame implements ActionListener {
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-		desc=descriptionField.getText();
-		amount=Double.parseDouble(amountField.getText());
-		HW4Data data=null;
-		if(type.equals("check")){
-			fee=checkFee(amount);
-			data = new HW4Data(df.format(date), desc, amount, fee,Integer.toString(checkNumber));
+		desc = descriptionField.getText().trim();
+		amount = Double.parseDouble(amountField.getText());
+		HW4Data data = null;
+		if (type.equals("check")) {
+			fee = checkFee(amount);
+			data = new HW4Data(df.format(date), desc, -amount, fee,
+					Integer.toString(checkNumber));
 			checkNumber++;
-		}
-		else{
-			fee=depositeFee(amount);
-		     data = new HW4Data(df.format(date), desc, -amount, fee,"");
+		} else {
+			fee = depositeFee(amount);
+			data = new HW4Data(df.format(date), desc, amount, fee, "");
 		}
 		return data;
 	}
+
 	/**
 	 * Calculate check fee
+	 * 
 	 * @param checkAmount
 	 * @return
 	 */
-	
-	public static double checkFee(double checkAmount){
-		if(checkAmount<10)
+
+	public static double checkFee(double checkAmount) {
+		if (checkAmount < 10)
 			return 0.10;
-		else if(checkAmount<100 || checkAmount >10 || checkAmount ==10)
+		else if (checkAmount < 100 || checkAmount > 10 || checkAmount == 10)
 			return 0.01 * checkAmount;
-		else 
+		else
 			return 1.00;
 	}
-	
-	public static double depositeFee(double depositeAmount){
-		if(depositeAmount >=1 && depositeAmount <=100)
+
+	public static double depositeFee(double depositeAmount) {
+		if (depositeAmount >= 1 && depositeAmount <= 100)
 			return 0.05;
-		else if(depositeAmount >100 && depositeAmount <=1000)
+		else if (depositeAmount > 100 && depositeAmount <= 1000)
 			return 0.005 * depositeAmount;
 		else
-			return 0.0025*depositeAmount;
-		
+			return 0.0025 * depositeAmount;
+
 	}
-	
-	public static boolean isValid(HW4Data hw4Data){
-		
+
+	/**
+	 * Deal with invalid amount
+	 * 
+	 * @param hw4Data
+	 * @return
+	 */
+	public  boolean isDataValid(String date, String desc,String amount) {
+        if(!isDepositeAmountValid(amount))
+        	return false;
+        else if(!isDescValid(desc))
+        	return false;
+        else
+        	return true;
+	}
+
+	public boolean isDateValid(String date) {
 		return false;
 	}
-	
-	
-		
-	class MyComparator implements Comparator<Object>{
+
+	public boolean isDescValid(String desc) {
+		if(desc.equals("")){
+			errorField.setText(DESC_ERROR);
+			return false;
+		}
+		else
+			return true;
+	}
+
+	public  boolean isDepositeAmountValid(String amount) {
+		boolean flag = false;
+		double realAmount = 0.00;
+		try {
+			realAmount = Double.parseDouble(amount);
+			flag = true;
+		} catch (NumberFormatException e) {
+			errorField.setText(DEPOSITE_ERROR);
+			return false;
+		}
+		if (realAmount < 1) {
+			errorField.setText(DEPOSITE_ERROR);
+			return false;
+		} else
+			return flag;
+
+	}
+
+	public boolean isCheckAmountValid(String amount) {
+		boolean flag = false;
+		double realAmount = 0.00;
+		try {
+			realAmount = Double.parseDouble(amount);
+			flag = true;
+		} catch (NumberFormatException e) {
+			errorField.setText(CHECK_ERROR);
+			return false;
+		}
+		if (realAmount < 0.01) {
+			errorField.setText(CHECK_ERROR);
+			return false;
+		} else
+			return flag;
+
+	}
+
+	class MyComparator implements Comparator<Object> {
 
 		@Override
 		public int compare(Object o1, Object o2) {
-			HW4Data data01= (HW4Data) o1;
+			HW4Data data01 = (HW4Data) o1;
 			HW4Data data02 = (HW4Data) o2;
 			DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 			Date date01 = null, date02 = null;
 			try {
-				date01 = (Date)df.parse(data01.getDate());
-				date02= (Date)df.parse(data02.getDate());
+				date01 = (Date) df.parse(data01.getDate());
+				date02 = (Date) df.parse(data02.getDate());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			if(date01.after(date02))
-		          return 1;
-		       else if(date01.before(date02))
-		          return -1;
-		       else
-		          return 0;
-			
+
+			if (date01.after(date02))
+				return 1;
+			else if (date01.before(date02))
+				return -1;
+			else
+				return 0;
+
 		}
 
-		
-	    
-	   
-
-	    
 	}
 
-	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new HW4GUI();
 	}
-	
-	
 
 }
