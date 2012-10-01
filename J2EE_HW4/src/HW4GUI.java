@@ -39,7 +39,7 @@ public class HW4GUI extends JFrame implements ActionListener {
 	private String desc;
 	private double amount;
 	private double fee;
-	public static final String DATE_ERROR = "Date is not a valid date";
+	public static final String DATE_ERROR = "Date is not a valid date, please input as MM/dd/yyyy";
 	public static final String DESC_ERROR = "Description cannot be empty";
 	public static final String DEPOSITE_ERROR = "Deposite amount is not a valid number";
 	public static final String CHECK_ERROR = "Check amount is not a valid number";
@@ -217,13 +217,30 @@ public class HW4GUI extends JFrame implements ActionListener {
         	return false;
         else if(!isDescValid(desc))
         	return false;
+        else if(!isDateValid(date))
+        	return false;
         else
         	return true;
 	}
 
-	public boolean isDateValid(String date) {
-		return false;
+	public boolean isDateValid(String str) {
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		String[] date = str.split("/");
+		if (date[0].length() == 2 && date[1].length() == 2
+				&& date[2].length() == 4) {
+			try {
+				formatter.parse(str);
+				return true;
+			} catch (ParseException e) {
+				errorField.setText(DATE_ERROR);
+				return false;
+			}
+		} else
+			errorField.setText(DATE_ERROR);
+			return false;
+
 	}
+
 
 	public boolean isDescValid(String desc) {
 		if(desc.equals("")){
