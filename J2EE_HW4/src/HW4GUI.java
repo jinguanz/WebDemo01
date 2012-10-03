@@ -1,6 +1,8 @@
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  * Name:Jinguang Zhou AndrewID: jinguanz Class:08-600; Date:2012-09-25
@@ -49,20 +52,20 @@ public class HW4GUI extends JFrame implements ActionListener {
 	public HW4GUI() {
 		dataList = new ArrayList<HW4Data>();
 		JFrame frame = new JFrame("15-600 Checking Account Register");
-		frame.setSize(520, 420);
+		frame.setBounds(100, 100, 800, 446);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel pane = new JPanel();
 		JLabel label = new JLabel("Date");
 		JLabel desLabel = new JLabel("Description");
 		JLabel accLabel = new JLabel("Account");
-		pane.add(label);
-		pane.add(desLabel);
-		pane.add(accLabel);
+		pane.add(label, BorderLayout.WEST);
+		pane.add(desLabel, BorderLayout.CENTER);
+		pane.add(accLabel, BorderLayout.EAST);
 		JPanel pane01 = new JPanel();
 		dateField = new JTextField(10);
 		dateField.setText(getDate());
-		descriptionField = new JTextField(15);
-		amountField = new JTextField(5);
+		descriptionField = new JTextField(30);
+		amountField = new JTextField(10);
 		JLabel moneyLabel = new JLabel("$");
 		pane01.add(dateField);
 		pane01.add(descriptionField);
@@ -79,8 +82,8 @@ public class HW4GUI extends JFrame implements ActionListener {
 		errorField = new JTextField(45);
 		errorField.setEditable(false);
 		errorPanel.add(errorField);
-		area = new JTextArea(15, 45);
-		area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance"
+		area = new JTextArea(15, 55);
+		area.setText("Date\tCheck #\tDescription\t\t\tAmount\tFee\tBalance"
 				+ "\n");
 		area.setEditable(false);
 		JScrollPane scroller = new JScrollPane(area);
@@ -94,7 +97,10 @@ public class HW4GUI extends JFrame implements ActionListener {
 		frame.setVisible(true);
 		comparator = new MyComparator();
 	}
-
+    /**
+     * Get the current date
+     * @return
+     */
 	public static String getDate() {
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		// get current date time with Date()
@@ -107,20 +113,20 @@ public class HW4GUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == checkButton) {
-			if (isDataValid(dateField.getText(),
-					descriptionField.getText(), amountField.getText())) {
+			if (isDataValid(dateField.getText(), descriptionField.getText(),
+					amountField.getText())) {
 				HW4Data data = createNewData("check");
 				dataList.add(data);
 				Collections.sort(dataList, comparator);
 				area.setText("");
-				area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance"
+				area.setText("Date\tCheck #\tDescription          \t\tAmount\tFee\tBalance"
 						+ "\n");
 				for (HW4Data hw4Data : dataList) {
 					balance = balance + hw4Data.getBalance();
 					area.append(hw4Data.getDate() + "\t" + hw4Data.getCheck()
 							+ "\t" + hw4Data.getDesc() + "\t\t"
 							+ hw4Data.getAmount() + "\t" + hw4Data.getFee()
-							+ "\t" + balance + "\t" + "\n");
+							+ "\t" + getStandardBalance(balance) + "\t" + "\n");
 				}
 				balance = 0;
 				descriptionField.setText("");
@@ -130,21 +136,22 @@ public class HW4GUI extends JFrame implements ActionListener {
 			}
 		}
 		if (e.getSource() == depositeButton) {
-			if (isDataValid(dateField.getText(),
-					descriptionField.getText(), amountField.getText())) {
+			if (isDataValid(dateField.getText(), descriptionField.getText(),
+					amountField.getText())) {
 				HW4Data data = createNewData("deposite");
 				// add a valid condition
 				dataList.add(data);
 				Collections.sort(dataList, comparator);
 				area.setText("");
-				area.setText("Date\tCheck #\tDescription\t\tAmount\tFee\tBalance"
+				area.setText("Date\tCheck #\tDescription         \t\tAmount\tFee\tBalance"
 						+ "\n");
 				for (HW4Data hw4Data : dataList) {
 					balance = balance + hw4Data.getBalance();
 					area.append(hw4Data.getDate() + "\t" + hw4Data.getCheck()
 							+ "\t" + hw4Data.getDesc() + "\t\t"
-							+ hw4Data.getAmount() + "\t" + hw4Data.getFee()
-							+ "\t" + balance + "\t" + "\n");
+							+ hw4Data.getStandardAmount() + "\t"
+							+ hw4Data.getStandardFee() + "\t"
+							+ getStandardBalance(balance) + "\t" + "\n");
 				}
 				balance = 0;
 				descriptionField.setText("");
@@ -156,6 +163,11 @@ public class HW4GUI extends JFrame implements ActionListener {
 		}
 
 	}
+	/**
+	 * Create a new HW4Data object
+	 * @param type
+	 * @return
+	 */
 
 	public HW4Data createNewData(String type) {
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
@@ -166,6 +178,10 @@ public class HW4GUI extends JFrame implements ActionListener {
 			e1.printStackTrace();
 		}
 		desc = descriptionField.getText().trim();
+		if (desc.toCharArray().length > 17) { // if the string is too long,
+												// trunc it
+			desc = desc.substring(0, 16);
+		}
 		amount = Double.parseDouble(amountField.getText());
 		HW4Data data = null;
 		if (type.equals("check")) {
@@ -195,10 +211,15 @@ public class HW4GUI extends JFrame implements ActionListener {
 		else
 			return 1.00;
 	}
+	/**
+	 * Calculate the deposite fee
+	 * @param depositeAmount
+	 * @return
+	 */
 
 	public static double depositeFee(double depositeAmount) {
 		if (depositeAmount >= 1 && depositeAmount <= 100)
-			return 0.05;
+			return 0.5;
 		else if (depositeAmount > 100 && depositeAmount <= 1000)
 			return 0.005 * depositeAmount;
 		else
@@ -212,16 +233,21 @@ public class HW4GUI extends JFrame implements ActionListener {
 	 * @param hw4Data
 	 * @return
 	 */
-	public  boolean isDataValid(String date, String desc,String amount) {
-        if(!isDepositeAmountValid(amount))
-        	return false;
-        else if(!isDescValid(desc))
-        	return false;
-        else if(!isDateValid(date))
-        	return false;
-        else
-        	return true;
+	public boolean isDataValid(String date, String desc, String amount) {
+		if (!isDepositeAmountValid(amount))
+			return false;
+		else if (!isDescValid(desc))
+			return false;
+		else if (!isDateValid(date))
+			return false;
+		else
+			return true;
 	}
+	/**
+	 * Deal with invalid date
+	 * @param str
+	 * @return
+	 */
 
 	public boolean isDateValid(String str) {
 		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -237,21 +263,28 @@ public class HW4GUI extends JFrame implements ActionListener {
 			}
 		} else
 			errorField.setText(DATE_ERROR);
-			return false;
+		return false;
 
 	}
-
+	/**
+	 * Deal with invalid description
+	 * @param desc
+	 * @return
+	 */
 
 	public boolean isDescValid(String desc) {
-		if(desc.equals("")){
+		if (desc.equals("")) {
 			errorField.setText(DESC_ERROR);
 			return false;
-		}
-		else
+		} else
 			return true;
 	}
-
-	public  boolean isDepositeAmountValid(String amount) {
+    /**
+     * Deal with invalid deposite amount
+     * @param amount
+     * @return
+     */
+	public boolean isDepositeAmountValid(String amount) {
 		boolean flag = false;
 		double realAmount = 0.00;
 		try {
@@ -268,6 +301,11 @@ public class HW4GUI extends JFrame implements ActionListener {
 			return flag;
 
 	}
+	/**
+	 * Deal with invalid check amount
+	 * @param amount
+	 * @return
+	 */
 
 	public boolean isCheckAmountValid(String amount) {
 		boolean flag = false;
@@ -286,6 +324,11 @@ public class HW4GUI extends JFrame implements ActionListener {
 			return flag;
 
 	}
+	/**
+	 * Comparator to sort different items
+	 * @author jinguangzhou
+	 *
+	 */
 
 	class MyComparator implements Comparator<Object> {
 
@@ -312,6 +355,15 @@ public class HW4GUI extends JFrame implements ActionListener {
 
 		}
 
+	}
+    /**
+     * Get the standard balance format
+     * @param balance
+     * @return
+     */
+	public String getStandardBalance(double balance) {
+		DecimalFormat df = new DecimalFormat("#,###,##0.00 ");
+		return df.format(balance);
 	}
 
 	public static void main(String[] args) {

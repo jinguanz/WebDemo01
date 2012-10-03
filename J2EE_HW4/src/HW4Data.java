@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.Date;
 
 /**
@@ -12,6 +13,7 @@ public class HW4Data {
 	private double fee;
 	private double balance;
 	private String check;
+	private DecimalFormat df   = new DecimalFormat( "#,###,##0.00 "); 
 	
 	public HW4Data(String date, String desc, double amount, double fee, String check){
 		this.date=date;
@@ -69,6 +71,19 @@ public class HW4Data {
 
 	public void setFee(double fee) {
 		this.fee = fee;
+	}
+	
+	public String getStandardAmount(){
+		return df.format(amount);
+	}
+	
+	public String getStandardFee(){
+		return df.format(fee);
+		
+	}
+	
+	public String getStandardBalance(){
+		return df.format(balance);
 	}
 
 	
