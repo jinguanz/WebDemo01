@@ -1,10 +1,18 @@
 package cmu.edu.mism.jinguanz.j2ee.hw5;
 
+import javax.swing.JButton;
+
+/**
+ * 
+ * @author jinguangzhou
+ * Use this class to control color thread
+ */
+
 public class ColorThread extends Thread{
+	private JButton[] arrayButton;
 	
-	
-	public ColorThread(){
-		
+	public ColorThread(JButton[] arrayButton){
+		this.arrayButton=arrayButton;
 	}
 	
 	
@@ -24,8 +32,6 @@ public class ColorThread extends Thread{
 		
 	}
 	
-	public void countDown(){
-		
-	}
+	
 
 }
