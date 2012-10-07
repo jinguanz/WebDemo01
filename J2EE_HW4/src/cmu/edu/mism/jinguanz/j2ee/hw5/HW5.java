@@ -2,6 +2,7 @@ package cmu.edu.mism.jinguanz.j2ee.hw5;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -11,6 +12,14 @@ import java.util.List;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+/**
+ * Name:Jinguang Zhou
+ * AndrewID:jinguanz
+ * Course:08-600
+ * Date: 10/05/2012
+ * @author jinguangzhou
+ *
+ */
 
 public class HW5 {
 

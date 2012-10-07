@@ -7,7 +7,10 @@ import java.util.Random;
 import javax.swing.JButton;
 
 /**
- * 
+ * Name:Jinguang Zhou
+ * AndrewID:jinguanz
+ * Course:08-600
+ * Date:10/05/2012
  * @author jinguangzhou
  * Use this class to control color thread
  */
