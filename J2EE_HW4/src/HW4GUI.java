@@ -280,7 +280,7 @@ public class HW4GUI extends JFrame implements ActionListener {
 			return true;
 	}
     /**
-     * Deal with invalid deposite amount
+     * Deal with invalid deposit amount
      * @param amount
      * @return
      */

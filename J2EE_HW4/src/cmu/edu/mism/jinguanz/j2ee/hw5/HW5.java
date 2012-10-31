@@ -72,6 +72,7 @@ public class HW5 {
 	public HW5() {
 		buttonList = new ArrayList<JButton>();
 		initialize();
+	
 	}
 
 	/**
@@ -390,6 +391,7 @@ public class HW5 {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			    score=0;
+			    textField_1.setText(Integer.toString(score));
 				Thread t1 = new TimeThread(textField);
 				t1.start();
 
