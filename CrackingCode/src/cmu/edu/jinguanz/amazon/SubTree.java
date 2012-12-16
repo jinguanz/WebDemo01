@@ -9,12 +9,11 @@ package cmu.edu.jinguanz.amazon;
  */
 
 public class SubTree {
-
 	public void preOrder(StringBuffer buffer, TreeNode t) {
 		if (t != null)
 			buffer.append(t.data);
 		else
-			buffer.append("x");
+			buffer.append("x");// leaf node
 		preOrder(buffer, t.left);
 		preOrder(buffer, t.right);
 
@@ -26,7 +25,6 @@ public class SubTree {
 		preOrder(buffer1, t1);
 		preOrder(buffer2, t2);
 		return isSubString(buffer1.toString(), buffer2.toString());
-
 	}
 
 	public boolean isSubString(String str1, String str2) {
@@ -53,31 +51,33 @@ public class SubTree {
 		return match;
 
 	}
-	
-	public boolean containsTree(TreeNode t1,TreeNode t2){
-		if(t2==null)
+
+	public boolean containsTree(TreeNode t1, TreeNode t2) {
+		if (t2 == null)
 			return true;
-		return subTree(t1,t2);
+		return subTree(t1, t2);
 	}
-	
-	public boolean subTree(TreeNode r1,TreeNode t2){
-		if(r1==null) return false;
-		if(r1.data==t2.data) {
-			if(matchTree(r1,t2)) return true;
+
+	public boolean subTree(TreeNode r1, TreeNode t2) {
+		if (r1 == null)
+			return false;
+		if (r1.data == t2.data) {
+			if (matchTree(r1, t2))
+				return true;
 		}
-		
-		return (subTree(r1.left,t2)) ||(subTree(r1.right,t2));
-			
+
+		return (subTree(r1.left, t2)) || (subTree(r1.right, t2));
+
 	}
-	
-	public boolean matchTree(TreeNode t1,TreeNode t2){
-		if(t1==null && t2==null)
+
+	public boolean matchTree(TreeNode t1, TreeNode t2) {
+		if (t1 == null && t2 == null)
 			return true;
-		if(t1==null || t2==null)
+		if (t1 == null || t2 == null)
 			return false;
-		if(t1.data!=t2.data)
+		if (t1.data != t2.data)
 			return false;
-		return matchTree(t1.left,t2.left) && matchTree(t1.right,t2.right);
+		return matchTree(t1.left, t2.left) && matchTree(t1.right, t2.right);
 	}
 
 	public static void main(String args[]) {

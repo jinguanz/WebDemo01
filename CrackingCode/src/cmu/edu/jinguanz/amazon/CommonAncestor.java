@@ -25,13 +25,16 @@ public class CommonAncestor {
 		}
 
       /**
-       * The node has link to its parent node
+       * The node has link to its parent node. Can be a BST or not a BST
        * @param n1
        * @param n2
        * @return
        */
 
    public Node LCA1(Node n1,Node n2){
+	   if(n1==null && n2==null) return null;
+	   if(n1==null) return n2;
+	   if(n2==null) return n1;
 	   Node parent1 = n1.parent;
 	   Node parent2 = n2.parent;
 	   while(parent1!=null && parent2!=null){
@@ -67,7 +70,7 @@ public class CommonAncestor {
    
    public Node commonAncestorHelper(Node root, Node p, Node q){
 	   if(root==null) return null;
-	   if(root==p||root==q) return null;
+	   if(root==p||root==q) return root;
 	   boolean is_p_on_left=covers(root.left,p);
 	   boolean is_q_on_left=covers(root.left,q);
 	   
@@ -76,9 +79,7 @@ public class CommonAncestor {
 	   
 	   /*If p and q are on same side, Traverse this side*/
 	   Node child_side = is_p_on_left ? root.left:root.right;
-	   return commonAncestor(child_side,p,q);
-	   
-			   
+	   return commonAncestor(child_side,p,q);		   
    }
    
 

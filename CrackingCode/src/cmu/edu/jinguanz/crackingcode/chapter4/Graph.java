@@ -29,7 +29,7 @@ public class Graph {
 	public void dfs(){
 		vertexList[0].wasVisited=true;
 		display(vertexList[0]);
-		stack.push(0);
+		stack.push(vertexList[0]);
 		
 		while(!stack.isEmpty()){
 			int v = getAdjUnvisitedVertex(stack.peek());
@@ -38,7 +38,7 @@ public class Graph {
 			}else{
 				vertexList[v].wasVisited=true;
 				display(vertexList[v]);
-				stack.push(v);
+				stack.push(vertexList[v]);
 			}
 		}
 		for(int i=0;i<nVerts;i++){

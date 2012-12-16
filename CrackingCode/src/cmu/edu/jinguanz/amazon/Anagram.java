@@ -37,7 +37,7 @@ public class Anagram {
 
     private static String sorting(String s) {
         char[] a = s.toCharArray();
-        Arrays.sort(a);
+        Arrays.sort(a);//Convert String to char array
         return new String(a);
     }
 }

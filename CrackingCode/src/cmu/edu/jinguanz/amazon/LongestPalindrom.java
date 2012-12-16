@@ -30,18 +30,19 @@ public class LongestPalindrom {
 		String reverse = reverse(str);
 		System.out.println("Reverse: " +reverse);
 		System.out.println("Length: " + reverse.length());
-		int maxLength=0;
-		int length=0;
+		int maxLength=1;
+		int length=1;
 		for(int i=0;i<str.length();i++){
 			int pointer=i;
 			for(int j=0;j<reverse.length()-i;j++){
 				if(str.charAt(pointer)==reverse.charAt(j)){
 					pointer++;
-					length++;
+					length++;;
 				}	
 				else
 				{
-					pointer=i;
+					//pointer=i;
+					break;
 				}
 					
 			}
@@ -68,14 +69,7 @@ public class LongestPalindrom {
 	}
 
 	public static void main(String args[]) {
-		//String a = "abaaaba";
-		/*if (new LongestPalindrom().isPalinfrom(a))
-			System.out.println("Yes");
-		else
-			System.out.println("Not");
-			*/
-		
-		String str ="abbbbaafdffdf";
+		String str ="fhgjhhgjkbbbb";
 		System.out.println(new LongestPalindrom().longestPalindrom(str));
 	}
 

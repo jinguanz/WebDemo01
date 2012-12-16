@@ -30,7 +30,7 @@ public class SubString {
 	}
 	public static void main(String args[]){
 		String a ="apple";
-		String b="apcp";
+		String b="app";
 		if(new SubString().isSubString(a, b))
 			System.out.println("Yes");
 		else

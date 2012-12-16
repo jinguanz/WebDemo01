@@ -30,7 +30,7 @@ public class CommonObjects {
 		
 		for(String s:map.keySet()){
 			Integer number =map.get(s);
-			if(number==0)
+			if(number==1) // 1 represents same, 0 represents different
 				list.add(s);
 		}
 		

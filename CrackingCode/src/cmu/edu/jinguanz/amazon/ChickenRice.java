@@ -2,7 +2,9 @@ package cmu.edu.jinguanz.amazon;
 
 public class ChickenRice {
 	   public static int eat(int[][] array){
-		   int[][] arrSum = new int[5][4];
+		   int[][] arrSum = new int[3][3];
+		   int[] rom = new int[3];
+		   int[] col = new int[3];
 		   arrSum[0][0] = array[0][0];
 		   System.out.println(array.length);
 		   for (int j = 1; j < array[0].length; j++)  
@@ -17,20 +19,38 @@ public class ChickenRice {
 	                arrSum[i][j] = Math.max(arrSum[i - 1][j], arrSum[i][j - 1]) + array[i][j];  
 	            }  
 	        }
-		   return arrSum[4][3];
+		   return arrSum[2][2];
 	    }  
+	   
+	   
+	   
+	   public static int printMax(int[][] a){
+		   int[][] grid = a;
+		   int gridSize = grid[0].length;
+		   for (int i = gridSize - 2; i >= 0; i--) {
+			    grid[gridSize - 1][i] += grid[gridSize - 1][i+1];
+			    grid[i][gridSize - 1] += grid[i+1][gridSize - 1];
+			}
+			 
+			for (int i = gridSize - 2; i >= 0; i--) {
+			    for (int j = gridSize - 2; j >= 0; j--) {
+			        grid[i][j] += Math.min(grid[i + 1][j], grid[i][j + 1]);
+			    }
+			}
+			System.out.println(grid[a.length-1][a[0].length-1]);
+			return grid[2][2];
+		}
 		   
 	   
 	
 	
 	
 	public static void main(String args[]){
-		int[][] array={{3,5,7,8},{5,7,0,2},{6,8,1,3},{9,56,78,90},{1,2,3,4}};
-		System.out.println(array.length);
-		System.out.println(array[0].length);
-		int result=ChickenRice.eat(array);
-		System.out.println("result: " + result);
-		System.out.println(5/2);
+		int[][] a={{3,5,7},{5,7,0},{6,8,1}};
+		int result = ChickenRice.eat(a);
+		System.out.println("Result: " + result);
+		ChickenRice.printMax(a);
+		
 		
 	}
 

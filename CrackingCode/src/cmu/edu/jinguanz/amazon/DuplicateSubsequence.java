@@ -15,13 +15,6 @@ import java.util.Map;
 
 public class DuplicateSubsequence {
 	
-	/*
-	
-	public int findDuplicateIndex(String str){
-		
-	}
-	*/
-	
 	public static int findDuplicate3Chars(String s)
     {
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -31,22 +24,21 @@ public class DuplicateSubsequence {
         {
             for (int j = 0; j < 3; j++)
             {
-                b.append(s.charAt(i + j));
+                b.append(s.charAt(i + j));//save three characters into the buffer
             }
             String key = b.toString();
             if (map.containsKey(key))
             {
                 return map.get(key);
             }
-            map.put(key, i);
-            b.setLength(0);
-            
+            map.put(key, i);//i represents position
+            b.setLength(0);//clear the buffer
         }
         return -1;
     }
 	
 	public static void main(String args[]){
-		String a ="abcdefdef";
+		String a ="bcdefacdef";
         System.out.println(new DuplicateSubsequence().findDuplicate3Chars(a));
 	}
 

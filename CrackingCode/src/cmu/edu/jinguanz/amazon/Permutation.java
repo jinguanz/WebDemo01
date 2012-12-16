@@ -19,7 +19,6 @@ public class Permutation {
 				swap(ch,j,start);
 				printPermuation(ch,start+1,end);
 				swap(ch,j,start);//http://zhedahht.blog.163.com/blog/static/254111742007499363479/
-				
 			}
 		}
 	}
@@ -28,7 +27,6 @@ public class Permutation {
 		char temp=ch[x];
 		ch[x]=ch[y];
 		ch[y]=temp;
-		
 	}
 	
 	public static void main(String args[]){

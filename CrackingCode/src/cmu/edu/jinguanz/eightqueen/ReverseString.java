@@ -9,7 +9,6 @@ public class ReverseString {
 	
 	public char[] reverseString(String str){
 		int middle = str.length()/2;
-		System.out.println("Middle: " + middle);
 		char[] array = str.toCharArray();
 		for(int i=0;i<middle;i++){
 			char temp=array[i];
@@ -20,7 +19,7 @@ public class ReverseString {
 	}
 	
 	public static void main(String args[]){
-		String a ="12345";
+		String a ="123456";
 		System.out.print("Reverse String: ");
 		for(char c:new ReverseString().reverseString(a)){
 			System.out.print(c);

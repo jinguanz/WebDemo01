@@ -49,8 +49,8 @@ public class SquareRoot {
 	 * @return
 	 */
 
-	public static double squareRoot(double x) {
-		double precision = 0.000001;
+	public static int squareRoot(double x) {
+		double precision = 0.00001;
 		double base = 0;
 		double increment = 1;
 		while (increment > precision) {
@@ -59,19 +59,19 @@ public class SquareRoot {
 				base += increment;
 			} else if (diff > 0) {
 				base -= increment;
-				increment /= 10;
+				increment /= 2;
 			} else {
 				break;
 			}
 		}
-		return base;
+		return (int) base;
 	}
 
 	public static void main(String args[]) {
-		System.out.println(SquareRoot.sqrt(3.6 * 3.6));
-		System.out.println(SquareRoot.squareRoot(3));
-		System.out.println(SquareRoot.sqrt2(3));
-		System.out.println(Math.sqrt(3));
+		//System.out.println(SquareRoot.sqrt(17));
+		System.out.println(SquareRoot.squareRoot(2000));
+		//System.out.println(SquareRoot.sqrt2(3));
+		//System.out.println(Math.sqrt(3));
 	}
 
 }

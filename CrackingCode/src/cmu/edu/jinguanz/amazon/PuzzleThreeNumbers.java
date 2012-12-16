@@ -20,7 +20,7 @@ package cmu.edu.jinguanz.amazon;
     end
  end
  
- NlogN
+ N*N must be a sorted array
  * @author jinguangzhou
  *
  */
@@ -36,10 +36,12 @@ public class PuzzleThreeNumbers {
 			while(k<l){
 				b=array[k];
 				c=array[l];
-				if((a+b+c)==0){
+				if((a+b+c)==12){
 					System.out.println(a +", " +b +", " +c);
-					return;
-				}else if((a+b+c)>0){
+					k=k+1;
+					l=l-1;
+					//return;
+				}else if((a+b+c)>12){
 					l=l-1;
 				}else{
 					k=k+1;
@@ -47,7 +49,7 @@ public class PuzzleThreeNumbers {
 					
 			}
 		}
-		System.out.println("Cannot find these three numbers");
+		//System.out.println("Cannot find these three numbers");
 		
 	}
 	/**
@@ -68,8 +70,9 @@ public class PuzzleThreeNumbers {
 	
 	public static void main(String args[]){
 		int[] a ={-3, 2, 4, 8,-25,-10,-7,5,6,7};// the array is not a sorted array
+		int[] b ={-25,-10,-7,-3,2,4,5,6,7,8};
 		new PuzzleThreeNumbers().find3Sum(a);
-		new PuzzleThreeNumbers().find3Sum2(a);
+		//new PuzzleThreeNumbers().find3Sum2(b);
 	}
 	
 
